@@ -17,7 +17,7 @@ import {
     Grid,
 } from "@mui/material";
 import { Edit, Delete, Info } from "@mui/icons-material";
-// import MultipleSelectPlaceholder from "../select";
+import MultipleSelectPlaceholder from "../select";
 import "./cars.css";
 
 const Cars = () => {

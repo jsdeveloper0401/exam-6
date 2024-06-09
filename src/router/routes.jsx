@@ -3,4 +3,4 @@ const routes = [
     { path: "/main/photos", content: "Products", icon: "fa-camera" },
 ];
 
-export default routes
+export default routes;

@@ -9,11 +9,9 @@ import App from "@/App";
 import Login from "@components/login/login";
 import Cars from "@components/cars/cars";
 import Main from "@components/main/main";
-import Users from "@components/users/users";
-import Todos from "@components/todos/todos";
 import Photos from "@components/photos/photos";
 import SingleCar from "@components/single-car/single-car";
-
+import Product from "../components/products";
 const Index = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -21,10 +19,9 @@ const Index = () => {
                 <Route index element={<Login />} />
                 <Route path="main/*" element={<Main />}>
                     <Route index element={<Cars />} />
-                    <Route path="users" element={<Users />} />
-                    <Route path="todos" element={<Todos />} />
                     <Route path="photos" element={<Photos />} />
                     <Route path="single-car" element={<SingleCar />} />
+                    <Route path="products/:id" element={<Product />} />
                 </Route>
             </Route>
         )
