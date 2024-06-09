@@ -7,7 +7,8 @@ import {
     DialogTitle,
     TextField,
 } from "@mui/material";
-const status =["inprog", "complete","pending","open"]
+import MultipleSelectPlaceholder from "./select";
+const status = ["inprog", "complete", "pending", "open"];
 const UserModal = ({ open, toggle, addCar, status }) => {
     const [car, setCar] = useState({
         status: status || "",
@@ -47,15 +48,7 @@ const UserModal = ({ open, toggle, addCar, status }) => {
         <Dialog open={open} onClose={toggle}>
             <DialogTitle>Add Car</DialogTitle>
             <DialogContent>
-                <TextField
-                    margin="dense"
-                    label="Status"
-                    name="status"
-                    type="text"
-                    fullWidth
-                    value={car.status}
-                    onChange={handleChange}
-                />
+                <MultipleSelectPlaceholder />
                 <TextField
                     margin="dense"
                     label="Brand"

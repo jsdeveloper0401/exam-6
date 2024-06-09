@@ -17,6 +17,7 @@ import {
     Grid,
 } from "@mui/material";
 import { Edit, Delete, Info } from "@mui/icons-material";
+// import MultipleSelectPlaceholder from "../select";
 import "./cars.css";
 
 const Cars = () => {
@@ -33,7 +34,6 @@ const Cars = () => {
         complete: false,
     });
 
-    
     const openModal = (status) => {
         setCurrentStatus(status);
         setModal(true);
