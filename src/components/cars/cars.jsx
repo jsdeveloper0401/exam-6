@@ -5,67 +5,37 @@ import { NavLink } from "react-router-dom";
 import {
     Button,
     TextField,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
+    Card,
+    CardContent,
+    CardActions,
+    Typography,
     IconButton,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
+    Grid,
 } from "@mui/material";
 import { Edit, Delete, Info } from "@mui/icons-material";
 import "./cars.css";
 
 const Cars = () => {
-    const [cars, setCars] = useState([
-        {
-            id: nanoid(),
-            status: "BYD Song +",
-            brand: "BYD",
-            color: "Black",
-            price: "$10000",
-            year: "2020-02-02",
-            status:"open"
-        },
-        {
-            id: nanoid(),
-            status: "Mercedes CLA 5",
-            brand: "Mercedes Benz",
-            color: "Black",
-            price: "$18000",
-            year: "2023-03-02",
-            status:"pending"
-        },
-        {
-            id: nanoid(),
-            status: "KIA 5",
-            brand: "KIA",
-            color: "Black",
-            price: "$18000",
-            year: "2023-07-02",
-            status:"inprog"
-        },
-        {
-            id: nanoid(),
-            status: "Captiva 5",
-            brand: "JENERAL MOTORS",
-            color: "Black",
-            price: "$18000",
-            year: "2023-03-05",
-            status:"complete"
-        },
-    ]);
+    const [cars, setCars] = useState([]);
     const [modal, setModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentCar, setCurrentCar] = useState(null);
+    const [currentStatus, setCurrentStatus] = useState("");
+    const [statusAddAnother, setStatusAddAnother] = useState({
+        open: false,
+        pending: false,
+        inprog: false,
+        complete: false,
+    });
 
-    const openModal = () => {
+    
+    const openModal = (status) => {
+        setCurrentStatus(status);
         setModal(true);
     };
 
@@ -86,33 +56,44 @@ const Cars = () => {
         setCurrentCar(null);
     };
 
+    const addCar = (car) => {
+        setCars([...cars, { ...car, id: nanoid(), status: currentStatus }]);
+        setModal(false);
+        setStatusAddAnother((prev) => ({
+            ...prev,
+            [currentStatus]: true,
+        }));
+    };
+
     const filteredCars = cars.filter((car) =>
         Object.values(car).some((value) =>
             value.toString().toLowerCase().includes(searchTerm.toLowerCase())
         )
     );
 
+    const statuses = ["open", "pending", "inprog", "complete"];
+
     return (
         <>
             <UserModal
                 open={modal}
                 toggle={() => setModal(false)}
-                cars={cars}
-                setCars={setCars}
+                addCar={addCar}
+                status={currentStatus}
             />
             <Dialog open={editModal} onClose={() => setEditModal(false)}>
                 <DialogTitle>Edit Car</DialogTitle>
                 <DialogContent>
                     <TextField
                         margin="dense"
-                        label="Name"
+                        label="Status"
                         type="text"
                         fullWidth
-                        value={currentCar?.name || ""}
+                        value={currentCar?.status || ""}
                         onChange={(e) =>
                             setCurrentCar({
                                 ...currentCar,
-                                name: e.target.value,
+                                status: e.target.value,
                             })
                         }
                     />
@@ -184,14 +165,6 @@ const Cars = () => {
                 <div className="row mt-3">
                     <div className="col-md-12">
                         <div className="row mb-3">
-                            <div className="col-md-3 m-3">
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={openModal}>
-                                    Open modal
-                                </Button>
-                            </div>
                             <div className="col-md-8">
                                 <TextField
                                     value={searchTerm}
@@ -208,91 +181,90 @@ const Cars = () => {
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <TableContainer
-                        component={Paper}
-                        className="my-3 bg-info table-responsive">
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ID</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Brand</TableCell>
-                                    <TableCell>Color</TableCell>
-                                    <TableCell>Price</TableCell>
-                                    <TableCell>Year</TableCell>
-                                    <TableCell>Action</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {filteredCars.map(
-                                    (
-                                        {
-                                            id,
-                                            status,
-                                            brand,
-                                            color,
-                                            price,
-                                            year,
-                                        },
-                                        index
-                                    ) => (
-                                        <TableRow key={id}>
-                                            <TableCell>{index + 1}</TableCell>
-                                            <TableCell>
-                                                <h5>{status}</h5>
-                                            </TableCell>
-                                            <TableCell>{brand}</TableCell>
-                                            <TableCell>{color}</TableCell>
-                                            <TableCell>{price}</TableCell>
-                                            <TableCell>{year}</TableCell>
-                                            <TableCell>
-                                                <div className="d-flex gap-3">
-                                                    <IconButton
-                                                        color="warning"
-                                                        onClick={() =>
-                                                            openEditModal({
-                                                                id,
-                                                                status,
-                                                                brand,
-                                                                color,
-                                                                price,
-                                                                year,
-                                                            })
-                                                        }>
-                                                        <Edit />
-                                                    </IconButton>
-                                                    <IconButton
-                                                        color="error"
-                                                        onClick={() =>
-                                                            deleteCar(id)
-                                                        }>
-                                                        <Delete />
-                                                    </IconButton>
-                                                    <NavLink
-                                                        to="single-car"
-                                                        state={{
-                                                            car: {
-                                                                id,
-                                                                status,
-                                                                brand,
-                                                                color,
-                                                                price,
-                                                                year,
-                                                            },
-                                                        }}
-                                                        className="btn btn-primary">
-                                                        <Info />
-                                                    </NavLink>
+                <Grid container spacing={3}>
+                    {statuses.map((status) => (
+                        <Grid item xs={12} sm={6} md={4} key={status}>
+                            <Card>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {status}
+                                    </Typography>
+                                    {filteredCars
+                                        .filter((car) => car.status === status)
+                                        .map(
+                                            ({
+                                                id,
+                                                status,
+                                                brand,
+                                                color,
+                                                price,
+                                                year,
+                                            }) => (
+                                                <div key={id}>
+                                                    <Typography color="text.secondary">
+                                                        {brand}
+                                                    </Typography>
+                                                    <Typography variant="body2">
+                                                        Color: {color}
+                                                        <br />
+                                                        Price: {price}
+                                                        <br />
+                                                        Year: {year}
+                                                    </Typography>
+                                                    <CardActions>
+                                                        <IconButton
+                                                            color="warning"
+                                                            onClick={() =>
+                                                                openEditModal({
+                                                                    id,
+                                                                    status,
+                                                                    brand,
+                                                                    color,
+                                                                    price,
+                                                                    year,
+                                                                })
+                                                            }>
+                                                            <Edit />
+                                                        </IconButton>
+                                                        <IconButton
+                                                            color="error"
+                                                            onClick={() =>
+                                                                deleteCar(id)
+                                                            }>
+                                                            <Delete />
+                                                        </IconButton>
+                                                        <NavLink
+                                                            to="single-car"
+                                                            state={{
+                                                                car: {
+                                                                    id,
+                                                                    status,
+                                                                    brand,
+                                                                    color,
+                                                                    price,
+                                                                    year,
+                                                                },
+                                                            }}
+                                                            className="btn btn-primary">
+                                                            <Info />
+                                                        </NavLink>
+                                                    </CardActions>
                                                 </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                )}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
+                                            )
+                                        )}
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => openModal(status)}>
+                                        {statusAddAnother[status]
+                                            ? "Add Another Car"
+                                            : "Add Car"}
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
             </div>
         </>
     );

@@ -1,136 +1,107 @@
-import React, { useState } from "react";
-import { Box, Button, Typography, TextField, Modal } from "@mui/material";
-
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-};
-
-const UserModal = (props) => {
-    const [form, setForm] = useState({
-        name: "",
+import React, { useState, useEffect } from "react";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+} from "@mui/material";
+const status =["inprog", "complete","pending","open"]
+const UserModal = ({ open, toggle, addCar, status }) => {
+    const [car, setCar] = useState({
+        status: status || "",
+        brand: "",
+        color: "",
         price: "",
         year: "",
-        color: "",
-        brand: "",
     });
+
+    useEffect(() => {
+        setCar((prevCar) => ({
+            ...prevCar,
+            status: status || "",
+        }));
+    }, [status]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm({ ...form, [name]: value });
+        setCar((prevCar) => ({
+            ...prevCar,
+            [name]: value,
+        }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(form);
-        props.setCars([...props.cars, form]);
-        setForm({
-            name: "",
+    const handleSubmit = () => {
+        addCar(car);
+        setCar({
+            status: status || "",
+            brand: "",
+            color: "",
             price: "",
             year: "",
-            color: "",
-            brand: "",
         });
-        props.toggle();
     };
 
     return (
-        <div className="container">
-            <Modal
-                open={props.open}
-                onClose={props.toggle}
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description">
-                <Box sx={style}>
-                    <Typography
-                        id="modal-title"
-                        variant="h6"
-                        component="h2"
-                        className="text-center">
-                        Add user
-                    </Typography>
-                    <form
-                        onSubmit={handleSubmit}
-                        id="submit"
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "1rem",
-                        }}>
-                        <TextField
-                            label="Name"
-                            name="name"
-                            variant="outlined"
-                            value={form.name}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        <TextField
-                            label="Price"
-                            name="price"
-                            variant="outlined"
-                            value={form.price}
-                            onChange={handleChange}
-                            type="number"
-                            fullWidth
-                        />
-                        <TextField
-                            label="Year"
-                            name="year"
-                            variant="outlined"
-                            value={form.year}
-                            onChange={handleChange}
-                            type="date"
-                            InputLabelProps={{ shrink: true }}
-                            fullWidth
-                        />
-                        <TextField
-                            label="Color"
-                            name="color"
-                            variant="outlined"
-                            value={form.color}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                        <TextField
-                            label="Brand"
-                            name="brand"
-                            variant="outlined"
-                            value={form.brand}
-                            onChange={handleChange}
-                            fullWidth
-                        />
-                    </form>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            mt: 2,
-                        }}>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={props.toggle}>
-                            Cancel
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            form="submit">
-                            Save
-                        </Button>
-                    </Box>
-                </Box>
-            </Modal>
-        </div>
+        <Dialog open={open} onClose={toggle}>
+            <DialogTitle>Add Car</DialogTitle>
+            <DialogContent>
+                <TextField
+                    margin="dense"
+                    label="Status"
+                    name="status"
+                    type="text"
+                    fullWidth
+                    value={car.status}
+                    onChange={handleChange}
+                />
+                <TextField
+                    margin="dense"
+                    label="Brand"
+                    name="brand"
+                    type="text"
+                    fullWidth
+                    value={car.brand}
+                    onChange={handleChange}
+                />
+                <TextField
+                    margin="dense"
+                    label="Color"
+                    name="color"
+                    type="text"
+                    fullWidth
+                    value={car.color}
+                    onChange={handleChange}
+                />
+                <TextField
+                    margin="dense"
+                    label="Price"
+                    name="price"
+                    type="text"
+                    fullWidth
+                    value={car.price}
+                    onChange={handleChange}
+                />
+                <TextField
+                    margin="dense"
+                    label="Year"
+                    name="year"
+                    type="date"
+                    fullWidth
+                    value={car.year}
+                    onChange={handleChange}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={toggle} color="secondary">
+                    Cancel
+                </Button>
+                <Button onClick={handleSubmit} color="primary">
+                    Save
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 };
 

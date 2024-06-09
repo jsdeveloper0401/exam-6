@@ -6,18 +6,19 @@ import next from "@img/next.svg";
 import "./photos.css";
 
 const Photos = () => {
-    const [photos, setPhotos] = useState([]);
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const limit = 3;
+    const [limit, setLimit] = useState(8);
+
     useEffect(() => {
         setLoading(true);
         axios
             .get(
-                `https://fakestoreapi.com/products?_limit=${limit}&_page=${currentPage}`
+                `https://fakestoreapi.com/products?limit=${limit}&page=${currentPage}`
             )
             .then((response) => {
-                setPhotos(response.data);
+                setData(response.data);
                 setLoading(false);
             })
             .catch((err) => {
@@ -42,16 +43,17 @@ const Photos = () => {
         );
     }
 
-    let cards = photos?.map((el) => (
-        <div key={el.id} className="col-sm-12 col-md-6 col-lg-4 mb-4">
+    let cards = data?.map((item) => (
+        <div key={item.id} className="col-sm-12 col-md-6 col-lg-3 mb-4">
             <div className="foto card h-100">
                 <img
-                    src={el.image}
+                    src={item.image}
                     className="card-img-top h-50"
-                    alt={el.title}
+                    alt={item.title}
                 />
                 <div className="card-body">
-                    <h5 className="card-title">{el.title}</h5>
+                    <h5 className="card-title">{item.title}</h5>
+                    <p className="card-text">{item.price}</p>
                 </div>
             </div>
         </div>

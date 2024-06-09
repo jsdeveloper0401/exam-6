@@ -7,14 +7,6 @@ import "./main.css";
 const Main = () => {
   return (
       <div>
-          {/* <Header /> */}
-          {/* <Sidebar /> */}
-          {/* <div className="headdd">
-              <Header />
-              <main className="main">
-                  <Outlet />
-              </main>
-          </div> */}
           <ResponsiveDrawer />
       </div>
   );
