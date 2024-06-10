@@ -10,6 +10,7 @@ export default defineConfig({
             { find: "@routes", replacement: "/src/router/routes.jsx" },
             { find: "@components", replacement: "/src/components" },
             { find: "@img", replacement: "/src/assets/img" },
+            { find: "@header", replacement: "/src/components/ui/header" },
         ],
     },
 });

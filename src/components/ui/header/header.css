@@ -18,6 +18,27 @@ body.dark-mode {
         background: #c31c1c79;
     }
 }
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+    button{
+        color:#fff;
+    }
+    input{
+        background: #fff;
+        border: 8px;
+    }
+}
+
+body.light-mode {
+    background-color: white;
+    color: #0c0c0c;
+}
+
+.header.shrink {
+    height: 50px;
+}
+
 
 .header {
     position: fixed;
@@ -26,6 +47,7 @@ body.dark-mode {
     padding: 20px 0;
     margin-bottom: 50px;
     background: black;
+    color:#fff;
     z-index: 1001;
     transition: padding 0.3s ease;
 }
@@ -63,7 +85,9 @@ body.dark-mode {
     border-color: #0081ff;
     color: red;
 }
-
+.navLink{
+    color:#fff;
+}
 .nav__btn {
     background: transparent;
     width: 40px;

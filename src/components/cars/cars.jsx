@@ -17,7 +17,6 @@ import {
     Grid,
 } from "@mui/material";
 import { Edit, Delete, Info } from "@mui/icons-material";
-import MultipleSelectPlaceholder from "../select";
 import "./cars.css";
 
 const Cars = () => {
@@ -27,12 +26,7 @@ const Cars = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentCar, setCurrentCar] = useState(null);
     const [currentStatus, setCurrentStatus] = useState("");
-    const [statusAddAnother, setStatusAddAnother] = useState({
-        open: false,
-        pending: false,
-        inprog: false,
-        complete: false,
-    });
+    const [statusAddAnother, setStatusAddAnother] = useState("");
 
     const openModal = (status) => {
         setCurrentStatus(status);
@@ -71,7 +65,7 @@ const Cars = () => {
         )
     );
 
-    const statuses = ["open", "pending", "inprog", "complete"];
+    const names = ["open", "pending", "inprog", "complete"];
 
     return (
         <>
@@ -182,7 +176,7 @@ const Cars = () => {
                     </div>
                 </div>
                 <Grid container spacing={3}>
-                    {statuses.map((status) => (
+                    {names.map((status) => (
                         <Grid item xs={12} sm={6} md={4} key={status}>
                             <Card>
                                 <CardContent>
@@ -271,3 +265,4 @@ const Cars = () => {
 };
 
 export default Cars;
+

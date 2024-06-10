@@ -70,3 +70,5 @@ export default function MultipleSelectPlaceholder({ onChange }) {
         </div>
     );
 }
+
+   

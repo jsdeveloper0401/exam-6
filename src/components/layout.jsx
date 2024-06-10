@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import routes from "../router/routes";
-import "../components/ui/header/header.css";
+import "@header/header.css";
 
 const drawerWidth = 240;
 
@@ -22,8 +22,9 @@ function ResponsiveDrawer(props) {
     const { pathname } = useLocation();
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [isClosing, setIsClosing] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
+
+    const primaryColor = "#070707"; 
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
@@ -36,38 +37,9 @@ function ResponsiveDrawer(props) {
         }
     };
 
-    const handleDrawerClose = () => {
-        setIsClosing(true);
-        setMobileOpen(false);
+    const toggle = () => {
+        setMobileOpen(!mobileOpen);
     };
-
-    const handleDrawerTransitionEnd = () => {
-        setIsClosing(false);
-    };
-
-    const handleDrawerToggle = () => {
-        if (!isClosing) {
-            setMobileOpen(!mobileOpen);
-        }
-    };
-
-    useEffect(() => {
-        if (typeof window !== "undefined") {
-            const handleScroll = () => {
-                const header = document.querySelector(".header");
-                if (window.scrollY > 80) {
-                    header.classList.add("shrink");
-                } else {
-                    header.classList.remove("shrink");
-                }
-            };
-
-            window.addEventListener("scroll", handleScroll);
-            return () => {
-                window.removeEventListener("scroll", handleScroll);
-            };
-        }
-    }, []);
 
     const drawer = (
         <div>
@@ -76,7 +48,7 @@ function ResponsiveDrawer(props) {
             <List>
                 {routes.map((item, index) => (
                     <ListItem key={index} disablePadding>
-                        <ListItemButton bgcolor={"transparent"}>
+                        <ListItemButton>
                             <NavLink
                                 to={item.path}
                                 className={`navLink ${
@@ -101,19 +73,25 @@ function ResponsiveDrawer(props) {
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { sm: `calc(100% ` },
+                    width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
+                    backgroundColor: primaryColor, // Apply common color here
                 }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         edge="start"
-                        onClick={handleDrawerToggle}
+                        onClick={toggle}
                         sx={{ mr: 2, display: { sm: "none" } }}>
                         <MenuIcon />
                     </IconButton>
-                    <Typography><h1>Header</h1></Typography>
+                    <Typography variant="h6" noWrap>
+                        Header
+                    </Typography>
+                    <IconButton onClick={toggleDarkMode} color="inherit">
+                        {darkMode ? "🌞" : "🌙"}
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Box
@@ -124,8 +102,7 @@ function ResponsiveDrawer(props) {
                     container={container}
                     variant="temporary"
                     open={mobileOpen}
-                    onTransitionEnd={handleDrawerTransitionEnd}
-                    onClose={handleDrawerClose}
+                    onClose={toggle}
                     ModalProps={{
                         keepMounted: true,
                     }}
@@ -134,6 +111,8 @@ function ResponsiveDrawer(props) {
                         "& .MuiDrawer-paper": {
                             boxSizing: "border-box",
                             width: drawerWidth,
+                            backgroundColor: primaryColor, 
+                            color: "white",
                         },
                     }}>
                     {drawer}
@@ -145,6 +124,8 @@ function ResponsiveDrawer(props) {
                         "& .MuiDrawer-paper": {
                             boxSizing: "border-box",
                             width: drawerWidth,
+                            backgroundColor: primaryColor, // Apply common color here
+                            color: "white",
                         },
                     }}
                     open>
