@@ -24,7 +24,7 @@ function ResponsiveDrawer(props) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
 
-    const primaryColor = "#070707"; 
+    const primaryColor = "#000000d3"; 
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
@@ -75,7 +75,7 @@ function ResponsiveDrawer(props) {
                 sx={{
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
                     ml: { sm: `${drawerWidth}px` },
-                    backgroundColor: primaryColor, // Apply common color here
+                    backgroundColor: primaryColor, //
                 }}>
                 <Toolbar>
                     <IconButton
@@ -124,7 +124,7 @@ function ResponsiveDrawer(props) {
                         "& .MuiDrawer-paper": {
                             boxSizing: "border-box",
                             width: drawerWidth,
-                            backgroundColor: primaryColor, // Apply common color here
+                            backgroundColor: primaryColor, 
                             color: "white",
                         },
                     }}

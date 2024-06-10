@@ -50,6 +50,7 @@ const Product = () => {
                             objectFit: "contain",
                             padding: "25px",
                             margin: "0 auto",
+                            color:"error"
                         }}
                         image={product.image}
                         alt={product.title}
