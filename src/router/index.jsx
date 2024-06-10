@@ -11,7 +11,8 @@ import Cars from "@components/cars/cars";
 import Main from "@components/main/main";
 import Photos from "@components/photos/photos";
 import SingleCar from "@components/single-car/single-car";
-import Product from "../components/products";
+import Product from "../components/product";
+
 const Index = () => {
     const router = createBrowserRouter(
         createRoutesFromElements(
