@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
-import UserModal from "../modal";
 import { NavLink } from "react-router-dom";
 import {
     Button,
@@ -17,9 +16,9 @@ import {
     Grid,
 } from "@mui/material";
 import { Edit, Delete, Info } from "@mui/icons-material";
-import "./cars.css";
+import UserModal from "../modal";
 
-const Cars = () => {
+const Cards = () => {
     const [cars, setCars] = useState([]);
     const [modal, setModal] = useState(false);
     const [editModal, setEditModal] = useState(false);
@@ -35,7 +34,6 @@ const Cars = () => {
 
     const openEditModal = (car) => {
         setCurrentCar(car);
-        console.log(car);
         setEditModal(true);
     };
 
@@ -52,11 +50,11 @@ const Cars = () => {
     };
 
     const addCar = (car) => {
-        setCars([...cars, { ...car, id: nanoid(), status: currentStatus }]);
+        setCars([...cars, { ...car, id: nanoid(), status: car.status }]);
         setModal(false);
         setStatusAddAnother((prev) => ({
             ...prev,
-            [currentStatus]: true,
+            [car.status]: true,
         }));
     };
 
@@ -157,28 +155,9 @@ const Cars = () => {
                 </DialogActions>
             </Dialog>
             <div className="container">
-                <div className="row mt-3">
-                    <div className="col-md-12">
-                        <div className="row mb-3">
-                            <div className="col-md-8">
-                                <TextField
-                                    value={searchTerm}
-                                    onChange={(e) =>
-                                        setSearchTerm(e.target.value)
-                                    }
-                                    type="text"
-                                    placeholder="Search..."
-                                    variant="outlined"
-                                    fullWidth
-                                    className="m-3"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <Grid container spacing={3}>
                     {names.map((status) => (
-                        <Grid item xs={12} sm={6} md={4} key={status}>
+                        <Grid item xs={12} sm={6} md={3} key={status}>
                             <Card>
                                 <CardContent>
                                     <Typography variant="h5" component="div">
@@ -265,5 +244,4 @@ const Cars = () => {
     );
 };
 
-export default Cars;
-
+export default Cards;

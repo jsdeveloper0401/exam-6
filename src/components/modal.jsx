@@ -1,46 +1,49 @@
 import React, { useState, useEffect } from "react";
 import {
-    Button,
     Dialog,
     DialogActions,
     DialogContent,
     DialogTitle,
     TextField,
+    Button,
+    MenuItem,
+    Select,
+    FormControl,
+    InputLabel,
 } from "@mui/material";
-import MultipleSelectPlaceholder from "./select";
-const status = ["inprog", "complete", "pending", "open"];
+
 const UserModal = ({ open, toggle, addCar, status }) => {
-    const [car, setCar] = useState({
-        status: status || "",
+    const [carDetails, setCarDetails] = useState({
         brand: "",
         color: "",
         price: "",
         year: "",
+        status: status,
     });
 
     useEffect(() => {
-        setCar((prevCar) => ({
-            ...prevCar,
-            status: status || "",
+        setCarDetails((prevDetails) => ({
+            ...prevDetails,
+            status: status,
         }));
     }, [status]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setCar((prevCar) => ({
-            ...prevCar,
+        setCarDetails((prevDetails) => ({
+            ...prevDetails,
             [name]: value,
         }));
     };
 
-    const handleSubmit = () => {
-        addCar(car);
-        setCar({
-            status: status || "",
+    const handleAddCar = () => {
+        addCar(carDetails);
+        setCarDetails({
             brand: "",
             color: "",
             price: "",
             year: "",
+            status: status,
         });
     };
 
@@ -48,50 +51,61 @@ const UserModal = ({ open, toggle, addCar, status }) => {
         <Dialog open={open} onClose={toggle}>
             <DialogTitle>Add Car</DialogTitle>
             <DialogContent>
-                <MultipleSelectPlaceholder />
                 <TextField
                     margin="dense"
                     label="Brand"
-                    name="brand"
                     type="text"
                     fullWidth
-                    value={car.brand}
+                    name="brand"
+                    value={carDetails.brand}
                     onChange={handleChange}
                 />
                 <TextField
                     margin="dense"
                     label="Color"
-                    name="color"
                     type="text"
                     fullWidth
-                    value={car.color}
+                    name="color"
+                    value={carDetails.color}
                     onChange={handleChange}
                 />
                 <TextField
                     margin="dense"
                     label="Price"
-                    name="price"
                     type="text"
                     fullWidth
-                    value={car.price}
+                    name="price"
+                    value={carDetails.price}
                     onChange={handleChange}
                 />
                 <TextField
                     margin="dense"
                     label="Year"
-                    name="year"
                     type="date"
                     fullWidth
-                    value={car.year}
+                    name="year"
+                    value={carDetails.year}
                     onChange={handleChange}
                 />
+                <FormControl fullWidth margin="dense">
+                    <InputLabel>Status</InputLabel>
+                    <Select
+                        name="status"
+                        value={carDetails.status}
+                        onChange={handleChange}>
+                        <MenuItem value="open">Open</MenuItem>
+                        <MenuItem value="pending">Pending</MenuItem>
+                        <MenuItem value="inprog">In Progress</MenuItem>
+                        <MenuItem value="complete">Complete</MenuItem>
+                    </Select>
+                </FormControl>
             </DialogContent>
             <DialogActions>
                 <Button onClick={toggle} color="secondary">
                     Cancel
                 </Button>
-                <Button onClick={handleSubmit} color="primary">
-                    Save
+                <Button onClick={handleAddCar} color="primary">
+                    Add Car
                 </Button>
             </DialogActions>
         </Dialog>
