@@ -8,8 +8,8 @@ body.light-mode {
 }
 
 body.dark-mode {
-    background-color: black;
-    color: white;
+    background-color: #EEF2F6;
+    color: rgb(0, 0, 0);
     .card {
         background: #000;
         color: #fff;
@@ -19,10 +19,10 @@ body.dark-mode {
     }
 }
 body.dark-mode {
-    background-color: #121212;
-    color: white;
+    background-color: #eef2f6 !important;
+    color:black;
     button{
-        color:#fff;
+        color:black;
     }
     input{
         background: #fff;
