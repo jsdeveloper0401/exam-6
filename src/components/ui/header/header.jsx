@@ -68,8 +68,12 @@ const Index = () => {
                         </button>
                         <button className="nav__btn" onClick={toggleDarkMode}>
                             <img
-                                src={darkMode ? Burger : Moon}
-                                alt="toggle dark mode"
+                                src={darkMode ? Moon : Burger}
+                                alt={
+                                    darkMode
+                                        ? "toggle light mode"
+                                        : "toggle dark mode"
+                                }
                                 className="nav__img"
                             />
                         </button>
