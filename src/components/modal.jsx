@@ -80,7 +80,6 @@ const UserModal = ({ open, toggle, addCar, status }) => {
                 />
                 <TextField
                     margin="dense"
-                    label="Year"
                     type="date"
                     fullWidth
                     name="year"
@@ -95,7 +94,7 @@ const UserModal = ({ open, toggle, addCar, status }) => {
                         onChange={handleChange}>
                         <MenuItem value="open">Open</MenuItem>
                         <MenuItem value="pending">Pending</MenuItem>
-                        <MenuItem value="inprog">In Progress</MenuItem>
+                        <MenuItem value="inprog">InProg</MenuItem>
                         <MenuItem value="complete">Complete</MenuItem>
                     </Select>
                 </FormControl>
@@ -105,7 +104,7 @@ const UserModal = ({ open, toggle, addCar, status }) => {
                     Cancel
                 </Button>
                 <Button onClick={handleAddCar} color="primary">
-                    Add Car
+                    Add
                 </Button>
             </DialogActions>
         </Dialog>

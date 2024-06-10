@@ -75,6 +75,7 @@ const Photos = () => {
                                 height="350"
                                 image={item.image}
                                 alt={item.title}
+                                onClick={() => handleBuyClick(item.id)}
                             />
                             <CardContent sx={{ flexGrow: 1 }}>
                                 <Typography
