@@ -46,7 +46,7 @@ const Product = () => {
                     alt={product.title}
                 />
                 <CardContent>
-                    <Typography variant="h4">{product.title}</Typography>
+                    <Typography variant="p">{product.title}</Typography>
                     <Typography variant="h6">${product.price}</Typography>
                     <Typography variant="body1" mt={2}>
                         {product.description}
