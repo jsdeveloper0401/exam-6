@@ -8,6 +8,7 @@ import {
     CardMedia,
     CardContent,
     CircularProgress,
+    Box,
 } from "@mui/material";
 
 const Product = () => {
@@ -38,21 +39,61 @@ const Product = () => {
 
     return (
         <Container>
-            <Card>
-                <CardMedia
-                    component="img"
-                    height="500"
-                    image={product.image}
-                    alt={product.title}
-                />
-                <CardContent>
-                    <Typography variant="p">{product.title}</Typography>
-                    <Typography variant="h6">${product.price}</Typography>
-                    <Typography variant="body1" mt={2}>
-                        {product.description}
-                    </Typography>
-                </CardContent>
-            </Card>
+            <Box display="flex" justifyContent="center">
+                <Card sx={{ maxWidth: 450 }}>
+                    <CardMedia
+                        className="cardImg"
+                        component="img"
+                        sx={{
+                            width: "400px",
+                            height: "400px",
+                            objectFit: "contain",
+                            padding: "25px",
+                            margin: "0 auto",
+                        }}
+                        image={product.image}
+                        alt={product.title}
+                    />
+                    <CardContent>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                maxWidth: "400px",
+                                margin: "0 auto",
+                                wordWrap: "break-word",
+                                textAlign: "center",
+                            }}>
+                            {product.title}
+                        </Typography>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                maxWidth: "400px",
+                                margin: "0 auto",
+                                wordWrap: "break-word",
+                                textAlign: "center",
+                            }}>
+                            ${product.price}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            mt={2}
+                            sx={{
+                                maxWidth: "400px",
+                                margin: "0 auto",
+                                wordWrap: "break-word",
+                                textAlign: "center",
+                                display: "-webkit-box",
+                                WebkitLineClamp: 4,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                            }}>
+                            {product.description}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Box>
         </Container>
     );
 };

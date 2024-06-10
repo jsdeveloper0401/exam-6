@@ -44,7 +44,7 @@ const Photos = () => {
     };
 
     const handleBuyClick = (id) => {
-        navigate(`/product/${id}`);
+        navigate(`/main/product/${id}`);
     };
 
     if (loading) {
