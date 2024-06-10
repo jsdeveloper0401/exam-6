@@ -24,7 +24,7 @@ function ResponsiveDrawer(props) {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
 
-    const primaryColor = "#000000d3"; 
+    const primaryColor = "#1D283B"; 
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
@@ -52,7 +52,7 @@ function ResponsiveDrawer(props) {
                             <NavLink
                                 to={item.path}
                                 className={`navLink ${
-                                    pathname === item.path ? "bg-primary" : ""
+                                    pathname === item.path ? "bg-warning text-dark" : ""
                                 }`}>
                                 <i className={`fa ${item.icon}`}></i>
                                 {item.content}
