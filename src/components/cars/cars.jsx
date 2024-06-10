@@ -35,6 +35,7 @@ const Cars = () => {
 
     const openEditModal = (car) => {
         setCurrentCar(car);
+        console.log(car);
         setEditModal(true);
     };
 
